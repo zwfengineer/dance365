@@ -11,7 +11,11 @@ import "element-plus/dist/index.css"
 localStorage.setItem("token",import.meta.env.VITE_TOKEN)
 
 
-request('/promotion/ads/search/findByPosition')
+request('/promotion/ads/search/findByPosition',{
+    params:{
+        position:"pc_mainpage"
+    }
+})
 
 const app = createApp(App)
 app.component("Header",Header)

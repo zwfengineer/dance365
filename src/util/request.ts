@@ -2,18 +2,11 @@ import axios, { type AxiosResponse } from "axios";
 // import pinia from '@/stores/index';
 import { ElMessage, ElMessageBox } from "element-plus";
 
-const deviceInfo =  {
-  signOs: "pc",
-  signAppVersion: "5.7.1",
-  signAppId: "wudao",
-  signDeviceCode: "454822bdf9f6bf0772961f7d261b6592",
-  signDeviceBrand: "Firefox",
-  signDeviceType: "108",
-};
+import deviceInfo  from "./device.json"
 
-const eig_nonce = "hnm6criaphtdzjr8rz42456wte56j8wa"
-const eig_timestamp = " 1669357111623"
-const eig_signature = " 7024c470672b079f011fcf7168d2a6e7rz3a188154ecd86f4a57cc31dc4d8efee787b931"
+const eig_nonce = "e4ysbe1hhbf6ef6zntrfbxhara13nr7w"
+const eig_timestamp = "1669361353202"
+const eig_signature = "6529da340721eb4b85a6d66ae1b6d9eb52f56ef92528e1xd43a1fd2ac53fabf874665146"
 const eig_appid = "eig_pc"
 const request = axios.create({
   baseURL: "/dev-api",
@@ -40,21 +33,20 @@ request.interceptors.request.use((config: any) => {
 request.interceptors.response.use(
   async (response: AxiosResponse<any>) => {
     // 对响应数据做点什么
-    const res = response.data;
-    if (res.code !== 200) {
+    if (response.status !== 200) {
       /* 成功数据的code值为20000/200 */
       // 统一的错误提示
       ElMessage({
-        message:
-          (typeof res.data == "string" && res.data) || res.message || "Error",
+        message:"error 网络错误",
         type: "error",
         duration: 5 * 1000,
       });
     } else {
-      return res;
+      return response.data;
     }
   },
   (error) => {
+    console.log(error)
     return Promise.reject(error);
   }
 );
