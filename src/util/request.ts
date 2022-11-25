@@ -8,6 +8,9 @@ const request = axios.create({
 });
 
 request.interceptors.request.use((config: any) => {
+  if(localStorage.getItem("token")){
+    config.params.access_token = localStorage.getItem("token")
+  }
   return config;
 });
 request.interceptors.response.use(
@@ -31,3 +34,4 @@ request.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+export default request
