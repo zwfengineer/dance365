@@ -11,9 +11,9 @@ const deviceInfo =  {
   signDeviceType: "108",
 };
 
-const eig_nonce = "wsnbpxwrh42kjfn82pbnmf63jnybrxym"
-const eig_timestamp = " 1669341596658"
-const eig_signature = " f0c21815bb4547c05ebbebe4w1a18ca5487230ed18ec7a4b440ad0ca9f500f164c3f5522"
+const eig_nonce = "hnm6criaphtdzjr8rz42456wte56j8wa"
+const eig_timestamp = " 1669357111623"
+const eig_signature = " 7024c470672b079f011fcf7168d2a6e7rz3a188154ecd86f4a57cc31dc4d8efee787b931"
 const eig_appid = "eig_pc"
 const request = axios.create({
   baseURL: "/dev-api",
@@ -21,10 +21,13 @@ const request = axios.create({
 });
 
 request.interceptors.request.use((config: any) => {
+  console.log(config)
   if (localStorage.getItem("token")) {
-    config.params = {
-      access_token: localStorage.getItem("token"),
-    };
+    if(!config.params){
+      config.params = {} 
+      // 避免意外覆盖或缺失params 对象
+    }
+    config.params.access_token =  localStorage.getItem("token");
     config.headers.deviceInfo = JSON.stringify(deviceInfo)
     config.headers.eig_nonce = eig_nonce
     config.headers.eig_signature = eig_signature
