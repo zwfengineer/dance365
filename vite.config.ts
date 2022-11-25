@@ -14,10 +14,11 @@ export default defineConfig({
   server:{
     proxy:{
       '/dev-api':{
-        target:"https://www.dance365.com/apis",
+        target:"https://www.dance365.com/apis/",
         changeOrigin:true,
         rewrite:(path)=>path.replace(/^\/dev-api/,'')
-      }
+      },
+    
     }
   }
 })

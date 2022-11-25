@@ -6,7 +6,7 @@ import pinia from './stores'
 import request from "./util/request"
 localStorage.setItem("token",import.meta.env.VITE_TOKEN)
 
-request.get("/moment/moments/rec/default")
+request.get("/setup/tdks/index_recommend")
 
 const app = createApp(App)
 app.use(router).use(pinia).mount("#app")
